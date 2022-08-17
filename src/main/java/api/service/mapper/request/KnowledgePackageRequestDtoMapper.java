@@ -1,7 +1,8 @@
-package api.service.mapper;
+package api.service.mapper.request;
 
 import api.dto.request.KnowledgePackageRequestDto;
 import api.model.KnowledgePackage;
+import api.service.mapper.RequestDtoMapper;
 import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 

@@ -22,17 +22,12 @@ public class KnowledgePackageServiceImpl implements KnowledgePackageService {
     @Override
     public KnowledgePackage get(Long id) {
         return knowledgePackageRepository.get(id).orElseThrow(
-                () -> new RuntimeException("Session with id " + id + " not found"));
+                () -> new RuntimeException("KnowledgePackage with id " + id + " not found"));
     }
 
     @Override
     public List<KnowledgePackage> getAll() {
         return knowledgePackageRepository.getAll();
-    }
-
-    @Override
-    public KnowledgePackage update(KnowledgePackage knowledgePackage) {
-        return knowledgePackageRepository.update(knowledgePackage);
     }
 
     @Override

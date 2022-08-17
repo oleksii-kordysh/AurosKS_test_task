@@ -1,12 +1,10 @@
 package api.dto.response;
 
-import java.time.LocalDate;
-
 public class KnowledgePackageResponseDto {
     private Long id;
     private String title;
     private String description;
-    private LocalDate creationDate;
+    private String creationDate;
 
     public void setId(Long id) {
         this.id = id;
@@ -20,7 +18,7 @@ public class KnowledgePackageResponseDto {
         this.description = description;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -36,7 +34,7 @@ public class KnowledgePackageResponseDto {
         return description;
     }
 
-    public LocalDate getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 }

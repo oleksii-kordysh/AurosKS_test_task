@@ -1,25 +1,29 @@
 package api.model;
 
-import java.time.LocalDate;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "knowledge_package")
-public class KnowledgePackage {
+@Table(name = "knowledge_package_set")
+public class KnowledgePackageSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 250)
     private String title;
-    @Column(length = 2000)
-    private String description;
-    @Column(name = "creation_date")
-    private LocalDate creationDate;
+    @ManyToMany
+    @JoinTable(name = "knowledge_package_set_knowledge_package",
+            joinColumns = @JoinColumn(name = "package_set_id"),
+            inverseJoinColumns = @JoinColumn(name = "package_id"))
+    private Set<KnowledgePackage> packages;
 
     public Long getId() {
         return id;
@@ -37,19 +41,11 @@ public class KnowledgePackage {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<KnowledgePackage> getPackages() {
+        return packages;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setPackages(Set<KnowledgePackage> packages) {
+        this.packages = packages;
     }
 }

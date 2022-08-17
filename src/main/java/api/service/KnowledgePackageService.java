@@ -10,7 +10,5 @@ public interface KnowledgePackageService {
 
     List<KnowledgePackage> getAll();
 
-    KnowledgePackage update(KnowledgePackage knowledgePackage);
-
     void delete(Long id);
 }

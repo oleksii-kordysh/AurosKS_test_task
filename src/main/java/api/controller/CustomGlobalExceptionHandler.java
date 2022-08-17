@@ -1,6 +1,5 @@
 package api.controller;
 
-import api.exception.DataProcessingException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,11 +36,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, headers, status);
     }
 
-    @ExceptionHandler(value = DataProcessingException.class)
+    @ExceptionHandler(value = RuntimeException.class)
     protected ResponseEntity<Object> handleConflict(
             RuntimeException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
+        body.put("timestamp", LocalDateTime.now().toString());
         body.put("error message", ex.getMessage());
         body.put("error cause", ex.getCause());
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);

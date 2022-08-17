@@ -56,28 +56,6 @@ public abstract class AbstractRepository<T> {
         }
     }
 
-    public T update(T t) {
-        Transaction transaction = null;
-        Session session = null;
-        try {
-            session = factory.openSession();
-            transaction = session.beginTransaction();
-            session.update(t);
-            transaction.commit();
-            return t;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw new DataProcessingException("Can't update "
-                    + clazz.getSimpleName() + " " + t, e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
     public void delete(Long id) {
         Transaction transaction = null;
         Session session = null;
