@@ -6,7 +6,9 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KnowledgePackageRequestDtoMapper {
+public class KnowledgePackageRequestDtoMapper
+        implements RequestDtoMapper<KnowledgePackageRequestDto, KnowledgePackage> {
+    @Override
     public KnowledgePackage mapToModel(KnowledgePackageRequestDto requestDto) {
         KnowledgePackage knowledgePackage = new KnowledgePackage();
         knowledgePackage.setTitle(requestDto.getTitle());

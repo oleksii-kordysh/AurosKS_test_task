@@ -4,8 +4,8 @@ import api.dto.request.KnowledgePackageRequestDto;
 import api.dto.response.KnowledgePackageResponseDto;
 import api.model.KnowledgePackage;
 import api.service.KnowledgePackageService;
-import api.service.mapper.KnowledgePackageRequestDtoMapper;
-import api.service.mapper.KnowledgePackageResponseDtoMapper;
+import api.service.mapper.RequestDtoMapper;
+import api.service.mapper.ResponseDtoMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -21,32 +21,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/kpacs")
 public class KnowledgePackageController {
     private KnowledgePackageService knowledgePackageService;
-    private KnowledgePackageResponseDtoMapper knowledgePackageResponseDtoMapper;
-    private KnowledgePackageRequestDtoMapper knowledgePackageRequestDtoMapper;
+    private ResponseDtoMapper<KnowledgePackageResponseDto, KnowledgePackage> knowledgePackageResponseDtoMapper;
+    private RequestDtoMapper<KnowledgePackageRequestDto, KnowledgePackage> knowledgePackageRequestDtoMapper;
 
     public KnowledgePackageController(
             KnowledgePackageService knowledgePackageService,
-            KnowledgePackageResponseDtoMapper knowledgePackageResponseDtoMapper) {
+            ResponseDtoMapper<KnowledgePackageResponseDto, KnowledgePackage> knowledgePackageResponseDtoMapper,
+            RequestDtoMapper<KnowledgePackageRequestDto, KnowledgePackage> knowledgePackageRequestDtoMapper) {
         this.knowledgePackageService = knowledgePackageService;
         this.knowledgePackageResponseDtoMapper = knowledgePackageResponseDtoMapper;
+        this.knowledgePackageRequestDtoMapper = knowledgePackageRequestDtoMapper;
     }
 
     @GetMapping
     public List<KnowledgePackageResponseDto> getAll() {
-        return knowledgePackageService.getAll()
+        List<KnowledgePackageResponseDto> collect = knowledgePackageService.getAll()
                 .stream()
                 .map(knowledgePackageResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
+        return collect;
     }
 
-    @PostMapping()
+    @PostMapping
     public KnowledgePackageResponseDto add(@RequestBody @Valid KnowledgePackageRequestDto requestDto) {
         KnowledgePackage knowledgePackage = knowledgePackageService.add(
                 knowledgePackageRequestDtoMapper.mapToModel(requestDto));
         return knowledgePackageResponseDtoMapper.mapToDto(knowledgePackage);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public void delete(@PathVariable Long id) {
         knowledgePackageService.delete(id);
     }

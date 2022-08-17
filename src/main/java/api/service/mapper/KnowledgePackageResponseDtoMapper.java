@@ -5,7 +5,9 @@ import api.model.KnowledgePackage;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KnowledgePackageResponseDtoMapper {
+public class KnowledgePackageResponseDtoMapper
+        implements ResponseDtoMapper<KnowledgePackageResponseDto, KnowledgePackage> {
+    @Override
     public KnowledgePackageResponseDto mapToDto(KnowledgePackage knowledgePackage) {
         KnowledgePackageResponseDto dto = new KnowledgePackageResponseDto();
         dto.setId(knowledgePackage.getId());

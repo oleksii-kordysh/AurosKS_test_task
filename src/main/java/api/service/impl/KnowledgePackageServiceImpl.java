@@ -21,7 +21,8 @@ public class KnowledgePackageServiceImpl implements KnowledgePackageService {
 
     @Override
     public KnowledgePackage get(Long id) {
-        return knowledgePackageRepository.get(id);
+        return knowledgePackageRepository.get(id).orElseThrow(
+                () -> new RuntimeException("Session with id " + id + " not found"));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class KnowledgePackageServiceImpl implements KnowledgePackageService {
     }
 
     @Override
-    public KnowledgePackage delete(Long id) {
-        return knowledgePackageRepository.delete(id);
+    public void delete(Long id) {
+        knowledgePackageRepository.delete(id);
     }
 }
